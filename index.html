@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knights of the Ping Pong Table — FTC Team 19938</title>
+  <meta name="description" content="FTC Team 19938 — Knights of the Ping Pong Table. A student-led FIRST Tech Challenge robotics team.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #F5C842;
+      --gold-dim: #c9a020;
+      --dark: #0b0f0a;
+      --dark2: #111812;
+      --dark3: #1e241a;
+      --text: rgba(234, 234, 234, 0.18);
+      --muted: #7a7a9a;
+      --border: rgba(245, 200, 66, 0.18);
+      --font-head: 'Rajdhani', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(35, 50, 35, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img {
+      height: 50px; width: 50px;
+
+
+    }
+    .nav-name { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
+    .nav-num { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 2rem; overflow: hidden;
+    }
+    .hero  img {
+      height: 300px; width: 300px;
+
+
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(245,200,66,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,200,66,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(245,200,66,0.07) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-logo {
+      width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--gold);
+      object-fit: cover; margin: 0 auto 2rem; display: block;
+      box-shadow: 0 0 40px rgba(245,200,66,0.2);
+    }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 1.5rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: 16px; color: var(--muted); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 3vw, 2.4rem);
+      font-weight: 700; line-height: 1; color: #fff; margin-bottom: 1rem;
+    }
+	.hero h2 span { color: var(--gold); font-size: clamp(1.4rem, 1vw, 2rem)}
+
+	h4 {
+     	font-family: var(--font-head);
+      	font-weight: 700; line-height: 1; color: #fff; margin-bottom: 1rem;
+	color: var(--gold);
+	font-size: clamp(1.4rem, 1vw, 2rem)
+    	}
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block; padding: 12px 28px;
+      border: 1.5px solid var(--gold); color: var(--gold);
+      font-family: var(--font-head); font-size: 15px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+      border-radius: 4px; transition: all 0.2s; cursor: pointer; background: transparent;
+    }
+    .btn:hover { background: var(--gold); color: var(--dark); }
+    .btn-ghost { border-color: rgba(255,255,255,0.15); color: var(--muted); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: transparent; }
+
+    /* ── STAT BAR ── */
+    .stat-bar {
+      background: var(--dark2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2rem; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; color: var(--gold); }
+    .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+    /* ── SECTIONS ── */
+    .section-inner { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-alt { background: var(--dark2); }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .section-divider { width: 40px; height: 2px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 15px; }
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .about-card { background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+    .about-card-title { font-family: var(--font-head); font-size: 1.05rem; color: var(--gold); margin-bottom: 0.4rem; font-weight: 700; }
+    .about-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ── TEAM ── */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .team-card {
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem; text-align: center; transition: border-color 0.2s;
+    }
+    .team-card:hover { border-color: var(--gold); }
+    .team-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--dark2); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--gold);
+    }
+    .team-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .team-role { font-size: 12px; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+    .team-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── SPONSORS ── */
+    .sponsors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .sponsor-card {
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 2rem 1.5rem; text-align: center; transition: border-color 0.2s;
+    }
+    .sponsor-card:hover { border-color: var(--gold); }
+    .sponsor-tier { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .sponsor-name { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .sponsor-placeholder { font-size: 11px; color: var(--muted); margin-top: 8px; }
+    .sponsor-cta { margin-top: 3rem; background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; text-align: center; }
+    .sponsor-cta h3 { font-family: var(--font-head); font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; font-weight: 700; }
+    .sponsor-cta p { color: var(--muted); font-size: 14px; margin-bottom: 1.5rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item { display: flex; align-items: center; gap: 12px; padding: 1rem; background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; }
+    .contact-icon {
+      width: 36px; height: 36px; border-radius: 6px;
+      background: rgba(245,200,66,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-icon svg { width: 18px; height: 18px; fill: var(--gold); }
+    .contact-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+    .contact-val { font-size: 14px; color: #fff; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 12px 14px;
+      color: var(--text); font-family: var(--font-body); font-size: 14px;
+      width: 100%; outline: none; transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--gold); }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem; text-align: center;
+      color: var(--muted); font-size: 13px;
+    }
+    footer span { color: var(--gold); }
+    footer p + p { margin-top: 8px; font-size: 12px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .stat-bar { gap: 2rem; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.97); border-bottom: 1px solid var(--border); padding: 1rem 2rem 1.5rem; gap: 1rem; }
+      .nav-toggle { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <!-- Replace src with your logo path e.g. /logo.png -->
+      <img src="logo.png" alt="Knights logo">
+      <div>
+        <div class="nav-name">Knights</div>
+        <div class="nav-num">FTC Team #19938</div>
+      </div>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#sponsors">Sponsors</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <!-- Replace src with your logo path -->
+      <img src="robot2.png" alt="Knights of the Ping Pong Table logo">
+      <div class="hero-eyebrow">FTC Team #19938 &mdash; FIRST Tech Challenge</div>
+      <h1>Knights of the<br><span>Ping Pong Table</span></h1>
+      <p class="hero-sub">Building robots, forging champions. A student-led FTC team driven by engineering, teamwork, and a little bit of ping pong along the way</p>
+      <div class="hero-btns">
+
+        <a href="#about" class="btn">MEET THE KNIGHTS</a>
+        <a href="https://www.youtube.com/@Ping-pongSocial/videos" class="btn btn-ghost">YOUTUBE</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+      	<h2><br>2025 AWARDS<br><span>1ST PLACE - DESIGN AWARD</span><br><span>2ND PLACE - REACH AWARD</span></h2>
+	<h2>2024 AWARDS<br><span>2ND PLACE - CONNECT AWARD</span><br><span>3RD PLACE - DESIGN AWARD</span></h2>
+    </div>
+  </section>
+
+  <!-- STAT BAR -->
+  <div class="stat-bar">
+    <div class="stat"><div class="stat-num">19938</div><div class="stat-label">Team Number</div></div>
+    <div class="stat"><div class="stat-num">91.1 (92%)</div><div class="stat-label">Total OPR</div></div>
+    <div class="stat"><div class="stat-num">38.9 (96%)</div><div class="stat-label">Auto OPR</div></div>
+    <div class="stat"><div class="stat-num">69.5 (93%)</div><div class="stat-label">Teleop OPR</div></div>
+  </div>
+
+  <!-- ABOUT -->
+ <section id="about">
+    <div class="section-inner">
+      <div class="section-eyebrow">What We Do</div>
+      <div class="section-title">More than a robotics team.<br><span style="color:var(--gold)">We are FIRST Tech Challenge.</span></div>
+      <div class="section-divider"></div>
+
+      <p style="color:var(--muted);font-size:16px;max-width:720px;line-height:1.8;margin-bottom:3rem;">
+        FIRST Tech Challenge is a student-led program that goes far beyond building robots. We are engineers, programmers, designers, marketers, fundraisers, and community leaders — all on the same team. FTC develops the skills that colleges and employers actually look for, wrapped in one of the most competitive student programs in the world.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
+
+        <div class="about-card">
+          <div class="about-card-title">&#9881; Engineering &amp; Design</div>
+          <p>Students design, build, and iterate a competition robot from scratch each season — learning mechanical engineering, CAD concepts, and hands-on fabrication in a real design cycle.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-title">&#128187; Programming</div>
+          <p>We code autonomous robot behavior and driver-control systems using Java. Members develop real software engineering skills — the same language used in professional Android development.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-title">&#128203; Business &amp; Marketing</div>
+          <p>Every team manages a brand, pitches to sponsors, writes a business plan, and markets itself to judges — building skills in communication, finance, and entrepreneurship.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-title">&#127775; Community Outreach</div>
+          <p>FTC teams earn awards for giving back. We run STEM events, mentor younger students, and connect with our community — outreach is scored just as much as robot performance.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-title">&#127942; Competition</div>
+          <p>Each season a new game challenge is released. Teams compete in qualifying tournaments, state championships, and the FIRST World Championship in Houston — against thousands of teams globally.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-title">&#127891; Scholarships</div>
+          <p>FIRST Tech Challenge alumni have access to tens of millions of dollars in college scholarships. 61% of FIRST alumni declare a major in engineering or computer science by their fourth year of college.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section-alt">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Roster</div>
+      <div class="section-title">Meet the Knights</div>
+      <div class="section-divider"></div>
+      <div class="team-grid">
+        <!-- Replace placeholder content with real names, roles, and descriptions -->
+        <div class="team-card">
+          <div class="team-avatar">WG</div>
+          <div class="team-name">Wyatt G.</div>
+          <div class="team-role">Team Captain</div>
+          <div class="team-desc">Leads strategy and competition planning</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">LL</div>
+          <div class="team-name">Lucas. L</div>
+          <div class="team-role">Lead Programmer</div>
+          <div class="team-desc">Mechanical design and robot build</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">BP</div>
+          <div class="team-name">Ben P.</div>
+          <div class="team-role">Programmer</div>
+          <div class="team-desc">Autonomous routines and driver control</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">JS</div>
+          <div class="team-name">Jacob S.</div>
+          <div class="team-role">Driver</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">BG</div>
+          <div class="team-name">Bryce G.</div>
+          <div class="team-role">Designer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">NG</div>
+          <div class="team-name">Noah G.</div>
+          <div class="team-role">Designer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">CJ</div>
+          <div class="team-name">Conor J.</div>
+          <div class="team-role">Programmer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">TC</div>
+          <div class="team-name">Titus C.</div>
+          <div class="team-role">Outreach</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">HR</div>
+          <div class="team-name">Henry R.</div>
+          <div class="team-role">Designer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">MA</div>
+          <div class="team-name">Mathias A.</div>
+          <div class="team-role">Designer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">RA</div>
+          <div class="team-name">Ronan A.</div>
+          <div class="team-role">Designer</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">AI</div>
+          <div class="team-name">Austin I.</div>
+          <div class="team-role">Driver</div>
+          <div class="team-desc">Operating the robot in competition</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">DS</div>
+          <div class="team-name">Dan Staake</div>
+          <div class="team-role">Coach</div>
+          <div class="team-desc">Mentor for Competition Strategy</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">MK</div>
+          <div class="team-name">Matt Klaustermeier</div>
+          <div class="team-role">Coach</div>
+          <div class="team-desc">Mentor for Programming</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">NG</div>
+          <div class="team-name">Nathan Goeckner</div>
+          <div class="team-role">Coach</div>
+          <div class="team-desc">Mentor for Design</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">TL</div>
+          <div class="team-name">Tim Lorenz</div>
+          <div class="team-role">Coach</div>
+          <div class="team-desc">Mentor for Game Strategy</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">+</div>
+          <div class="team-name">Join Us</div>
+          <div class="team-role">Open Spots</div>
+          <div class="team-desc">Interested in joining the Knights?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section id="sponsors">
+    <div class="section-inner">
+      <div class="section-eyebrow">Our Supporters</div>
+      <div class="section-title">Sponsors &amp; Partners</div>
+      <div class="section-divider"></div>
+      <div class="sponsors-grid">
+        <!-- Replace with real sponsor names and logos -->
+        <div class="sponsor-card">
+          <div class="sponsor-tier">Gold Sponsor</div>
+          <div class="sponsor-name">Boeing</div>
+        </div>
+        <div class="sponsor-card">
+          <div class="sponsor-tier">Gold Sponsor</div>
+          <div class="sponsor-name">ERNST <br>Heating & Cooling</div>
+        </div>
+        <div class="sponsor-card">
+          <div class="sponsor-tier">Community Partner</div>
+          <div class="sponsor-name">Metro East <br>Lutheran High School</div>
+        </div>
+      </div>
+      <div class="sponsor-cta">
+        <h3>Become a Sponsor</h3>
+        <p>Your support helps fund robot parts, registration fees, travel, and STEM outreach events. Sponsors receive logo placement on our robot, pit display, and team materials.</p>
+        <a href="#contact" class="btn">Partner With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section-alt">
+    <div class="section-inner">
+      <div class="section-eyebrow">Get in Touch</div>
+      <div class="section-title">Contact the Knights</div>
+      <div class="section-divider"></div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <!-- Replace with your actual email -->
+              <div class="contact-val">ddstaake@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Location</div>
+              <!-- Replace with your actual location -->
+              <div class="contact-val">Edwardsville Illinois, USA</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 2H7C5.9 2 5 2.9 5 4v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5-4H7V4h10v12z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Website</div>
+              <div class="contact-val">ftc19938.org</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>FTC Team <span>#19938</span> &mdash; Knights of the Ping Pong Table &mdash; <span>ftc19938.org</span></p>
+    <p>FIRST Tech Challenge &mdash; Grades 7–12</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+    // Contact form — wire up to your backend or a service like Formspree
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Message Sent!';
+      btn.style.background = 'var(--gold)';
+      btn.style.color = 'var(--dark)';
+      btn.disabled = true;
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>
